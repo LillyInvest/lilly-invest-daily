@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LILLY INVEST DAILY</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f5f7;
+      color: #16233b;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: #ffffff;
+      min-height: 100vh;
+      box-shadow: 0 0 30px rgba(0,0,0,0.08);
+    }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(135deg, #071a3a, #102d5c);
+      color: white;
+      padding: 35px 45px 30px;
+      text-align: center;
+      border-bottom: 5px solid #c99b3b;
+    }
+
+    .logo {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #ffffff;
+    }
+
+    .logo span {
+      color: #d4aa55;
+    }
+
+    .tagline {
+      margin-top: 8px;
+      font-size: 14px;
+      letter-spacing: 2px;
+      color: #d8e0ec;
+      text-transform: uppercase;
+    }
+
+    .date {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #ffffff;
+    }
+
+    /* CONTENT */
+    main {
+      padding: 35px 45px 50px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 30px 0 18px;
+      font-size: 21px;
+      color: #102d5c;
+      border-left: 5px solid #c99b3b;
+      padding-left: 12px;
+    }
+
+    /* MARKET CARDS */
+    .market-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .market-card {
+      background: #f8f9fb;
+      border: 1px solid #e1e5eb;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      transition: 0.2s;
+    }
+
+    .market-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .market-name {
+      font-size: 13px;
+      color: #687386;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .market-value {
+      font-size: 25px;
+      font-weight: 800;
+      margin: 8px 0;
+      color: #16233b;
+    }
+
+    .up {
+      color: #159447;
+      font-weight: bold;
+    }
+
+    .down {
+      color: #d74343;
+      font-weight: bold;
+    }
+
+    /* CHART */
+    .chart-box {
+      background: #071a3a;
+      border-radius: 12px;
+      padding: 25px;
+      color: white;
+      margin-top: 15px;
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .chart-title {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .chart-period {
+      font-size: 13px;
+      color: #c9d4e5;
+    }
+
+    .chart {
+      height: 260px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid #52627c;
+      border-left: 1px solid #52627c;
+      background:
+        linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 50px 50px;
+    }
+
+    .chart svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .chart-line {
+      fill: none;
+      stroke: #d4aa55;
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .chart-area {
+      fill: url(#gradient);
+      opacity: 0.3;
+    }
+
+    /* MARKET VIEW */
+    .market-view {
+      background: #fff8e9;
+      border: 1px solid #ead5a4;
+      border-radius: 10px;
+      padding: 25px;
+      margin-top: 15px;
+    }
+
+    .market-view h3 {
+      color: #9a711d;
+      margin-bottom: 10px;
+    }
+
+    .market-view p {
+      color: #39465a;
+      font-size: 16px;
+    }
+
+    /* TWO COLUMNS */
+    .two-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .info-box {
+      border: 1px solid #e1e5eb;
+      border-radius: 10px;
+      padding: 25px;
+      background: #ffffff;
+    }
+
+    .info-box h3 {
+      color: #102d5c;
+      margin-bottom: 18px;
+      font-size: 18px;
+      border-bottom: 2px solid #e8edf3;
+      padding-bottom: 10px;
+    }
+
+    .news-item {
+      padding: 12px 0;
+      border-bottom: 1px solid #edf0f3;
+    }
+
+    .news-item:last-child {
+      border-bottom: none;
+    }
+
+    .news-item strong {
+      color: #102d5c;
+    }
+
+    /* SECTORS */
+    .sector-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .sector-card {
+      padding: 20px;
+      border-radius: 10px;
+      background: #f8f9fb;
+      border: 1px solid #e1e5eb;
+    }
+
+    .sector-name {
+      font-weight: bold;
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+
+    .sector-status {
+      font-size: 14px;
+    }
+
+    /* STOCKS */
+    .stock-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .stock-card {
+      border: 1px solid #e1e5eb;
+      border-radius: 10px;
+      padding: 25px;
+      background: #ffffff;
+    }
+
+    .stock-code {
+      font-size: 24px;
+      font-weight: 800;
+      color: #102d5c;
+    }
+
+    .stock-tag {
+      display: inline-block;
+      margin: 8px 0 15px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: #fff2d2;
+      color: #9a711d;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .stock-card p {
+      color: #4f5b6d;
+    }
+
+    /* DISCLAIMER */
+    .disclaimer {
+      margin-top: 40px;
+      padding: 20px;
+      background: #f5f6f8;
+      border-radius: 8px;
+      font-size: 12px;
+      color: #707a89;
+      text-align: center;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #071a3a;
+      color: #c9d4e5;
+      text-align: center;
+      padding: 25px;
+      font-size: 13px;
+    }
+
+    footer strong {
+      color: #d4aa55;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 800px) {
+      header {
+        padding: 30px 20px;
+      }
+
+      main {
+        padding: 25px 20px;
+      }
+
+      .market-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .two-columns,
+      .stock-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sector-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .logo {
+        font-size: 27px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .market-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .market-value {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      LILLY <span>INVEST DAILY</span>
+    </div>
+
+    <div class="tagline">
+      Daily Market Brief • Vietnam Stock Market
+    </div>
+
+    <div class="date">
+      Thứ Tư, ngày 29/07/2026
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- MARKET OVERVIEW -->
+    <h2 class="section-title">
+      📊 TỔNG QUAN THỊ TRƯỜNG
+    </h2>
+
+    <div class="market-grid">
+
+      <div class="market-card">
+        <div class="market-name">VN-Index</div>
+        <div class="market-value">1,680.62</div>
+        <div class="up">▲ +12.45 (+0.75%)</div>
+      </div>
+
+      <div class="market-card">
+        <div class="market-name">VN30</div>
+        <div class="market-value">1,702.38</div>
+        <div class="up">▲ +9.68 (+0.57%)</div>
+      </div>
+
+      <div class="market-card">
+        <div class="market-name">HNX-Index</div>
+        <div class="market-value">358.42</div>
+        <div class="up">▲ +2.12 (+0.59%)</div>
+      </div>
+
+      <div class="market-card">
+        <div class="market-name">Khối ngoại</div>
+        <div class="market-value">+220 tỷ</div>
+        <div class="up">Mua ròng</div>
+      </div>
+
+    </div>
+
+
+    <!-- CHART -->
+    <h2 class="section-title">
+      📈 DIỄN BIẾN VN-INDEX
+    </h2>
+
+    <div class="chart-box">
+
+      <div class="chart-header">
+        <div class="chart-title">
+          VN-INDEX
+        </div>
+
+        <div class="chart-period">
+          1 tháng gần nhất
+        </div>
+      </div>
+
+      <div class="chart">
+
+        <svg viewBox="0 0 1000 260" preserveAspectRatio="none">
+
+          <defs>
+            <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#d4aa55" stop-opacity="0.7"/>
+              <stop offset="100%" stop-color="#d4aa55" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+
+          <path
+            class="chart-area"
+            d="M0,210
+               L80,190
+               L150,205
+               L220,165
+               L300,180
+               L370,140
+               L450,155
+               L520,110
+               L600,125
+               L670,90
+               L740,105
+               L810,60
+               L880,75
+               L950,35
+               L1000,50
+               L1000,260
+               L0,260 Z"
+          />
+
+          <path
+            class="chart-line"
+            d="M0,210
+               L80,190
+               L150,205
+               L220,165
+               L300,180
+               L370,140
+               L450,155
+               L520,110
+               L600,125
+               L670,90
+               L740,105
+               L810,60
+               L880,75
+               L950,35
+               L1000,50"
+          />
+
+        </svg>
+
+      </div>
+
+    </div>
+
+
+    <!-- MARKET VIEW -->
+    <h2 class="section-title">
+      🎯 NHẬN ĐỊNH THỊ TRƯỜNG
+    </h2>
+
+    <div class="market-view">
+
+      <h3>VN-Index duy trì đà hồi phục</h3>
+
+      <p>
+        Thị trường ghi nhận diễn biến tích cực khi VN-Index tiếp tục duy trì
+        xu hướng hồi phục. Dòng tiền có dấu hiệu cải thiện tại một số nhóm
+        ngành dẫn dắt. Nhà đầu tư cần tiếp tục theo dõi thanh khoản và khả
+        năng chinh phục vùng kháng cự quan trọng trong các phiên tới.
+      </p>
+
+    </div>
+
+
+    <!-- MACRO + MONEY FLOW -->
+    <h2 class="section-title">
+      🌎 VĨ MÔ & DÒNG TIỀN
+    </h2>
+
+    <div class="two-columns">
+
+      <div class="info-box">
+
+        <h3>🌎 LILLY MACRO NEWS</h3>
+
+        <div class="news-item">
+          <strong>🇺🇸 Fed:</strong>
+          Thị trường tiếp tục theo dõi định hướng chính sách tiền tệ
+          và triển vọng lãi suất của Fed.
+        </div>
+
+        <div class="news-item">
+          <strong>🇻🇳 Kinh tế Việt Nam:</strong>
+          Các chỉ tiêu tăng trưởng và đầu tư công tiếp tục là yếu tố
+          quan trọng đối với triển vọng thị trường.
+        </div>
+
+        <div class="news-item">
+          <strong>💵 Tỷ giá:</strong>
+          Diễn biến USD/VND và chính sách tiền tệ cần tiếp tục được
+          theo dõi trong thời gian tới.
+        </div>
+
+      </div>
+
+
+      <div class="info-box">
+
+        <h3>💰 DÒNG TIỀN</h3>
+
+        <div class="news-item">
+          <strong>Khối ngoại:</strong>
+          <span class="up">Mua ròng +220 tỷ đồng</span>
+        </div>
+
+        <div class="news-item">
+          <strong>Tự doanh:</strong>
+          <span class="up">Mua ròng +110 tỷ đồng</span>
+        </div>
+
+        <div class="news-item">
+          <strong>Cá nhân:</strong>
+          <span class="down">Bán ròng -95 tỷ đồng</span>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- SECTORS -->
+    <h2 class="section-title">
+      🏭 NHÓM NGÀNH NỔI BẬT
+    </h2>
+
+    <div class="sector-grid">
+
+      <div class="sector-card">
+        <div class="sector-name">
+          📈 Chứng khoán
+        </div>
+
+        <div class="sector-status up">
+          ▲ Tích cực
+        </div>
+
+        <p>
+          Dòng tiền cải thiện, hưởng lợi nếu thanh khoản thị trường
+          duy trì ở mức cao.
+        </p>
+      </div>
+
+
+      <div class="sector-card">
+        <div class="sector-name">
+          🏗️ Thép
+        </div>
+
+        <div class="sector-status up">
+          ▲ Theo dõi tích cực
+        </div>
+
+        <p>
+          Triển vọng nhu cầu và đầu tư công là các yếu tố cần chú ý.
+        </p>
+      </div>
+
+
+      <div class="sector-card">
+        <div class="sector-name">
+          🏢 Bất động sản
+        </div>
+
+        <div class="sector-status">
+          → Phân hóa
+        </div>
+
+        <p>
+          Dòng tiền tập trung vào các doanh nghiệp có nền tảng tài chính
+          và câu chuyện riêng.
+        </p>
+      </div>
+
+    </div>
+
+
+    <!-- STOCK FOCUS -->
+    <h2 class="section-title">
+      🎯 CỔ PHIẾU TÂM ĐIỂM
+    </h2>
+
+    <div class="stock-grid">
+
+      <div class="stock-card">
+
+        <div class="stock-code">
+          VCI
+        </div>
+
+        <div class="stock-tag">
+          CHỨNG KHOÁN
+        </div>
+
+        <p>
+          Cổ phiếu thuộc nhóm chứng khoán đáng chú ý khi thanh khoản
+          thị trường cải thiện và dòng tiền quay trở lại nhóm tài chính.
+        </p>
+
+      </div>
+
+
+      <div class="stock-card">
+
+        <div class="stock-code">
+          HPG
+        </div>
+
+        <div class="stock-tag">
+          THÉP
+        </div>
+
+        <p>
+          Nhà đầu tư có thể theo dõi diễn biến ngành thép, nhu cầu tiêu thụ
+          và các thông tin liên quan đến đầu tư công.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- COMPANY NEWS -->
+    <h2 class="section-title">
+      📰 TIN DOANH NGHIỆP ĐÁNG CHÚ Ý
+    </h2>
+
+    <div class="info-box">
+
+      <div class="news-item">
+        <strong>VHM:</strong>
+        Theo dõi thông tin liên quan đến tiến độ dự án và hoạt động kinh doanh.
+      </div>
+
+      <div class="news-item">
+        <strong>FPT:</strong>
+        Nhà đầu tư quan tâm đến triển vọng tăng trưởng và kết quả kinh doanh.
+      </div>
+
+      <div class="news-item">
+        <strong>HPG:</strong>
+        Theo dõi triển vọng sản lượng, giá thép và nhu cầu xây dựng.
+      </div>
+
+    </div>
+
+
+    <!-- DISCLAIMER -->
+    <div class="disclaimer">
+
+      <strong>Lưu ý:</strong>
+
+      Nội dung LILLY INVEST DAILY được cung cấp nhằm mục đích thông tin
+      và tham khảo. Đây không phải là khuyến nghị mua, bán hoặc nắm giữ
+      bất kỳ chứng khoán nào. Nhà đầu tư cần tự đánh giá rủi ro và đưa ra
+      quyết định phù hợp với mục tiêu đầu tư của mình.
+
+    </div>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <strong>LILLY INVEST DAILY</strong>
+
+    <br>
+
+    Daily Market Brief • Vietnam Stock Market
+
+    <br><br>
+
+    © 2026 LillyInvest. All rights reserved.
+
+  </footer>
+
+</div>
+
+</body>
+</html>
